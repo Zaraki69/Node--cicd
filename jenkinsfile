@@ -27,14 +27,16 @@ pipeline {
             echo "Deploying to App EC2..."
 
             rsync -avz -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no" \
-                --exclude=node_modules/ ./ \
-                ubuntu@13.232.210.165:/var/www/nodeapp
+  --exclude=node_modules/ ./ \
+  ubuntu@13.232.210.165:/var/www/nodeapp
+
 
             ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ubuntu@13.232.210.165 "
-                cd /var/www/nodeapp &&
-                npm install &&
-                pm2 restart all || pm2 start server.js
-            "
+    cd /var/www/nodeapp &&
+    npm install &&
+    pm2 restart all || pm2 start server.js
+"
+
         '''
     }
 }
