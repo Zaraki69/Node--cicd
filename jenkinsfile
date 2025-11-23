@@ -1,6 +1,6 @@
 pipeline {
 
-    agent none 
+    agent none
 
     stages {
 
@@ -26,12 +26,12 @@ pipeline {
         sh '''
             echo "Deploying to App EC2..."
 
-            rsync -avz -e "ssh -i ~/home/ubuntu/.ssh/id_ed25519 -o StrictHostKeyChecking=no" \
+            rsync -avz -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no" \
   --exclude=node_modules/ ./ \
   ubuntu@3.109.158.104:/var/www/nodeapp
 
 
-            ssh -i ~/home/ubuntu/.ssh/id_ed25519 -o StrictHostKeyChecking=no ubuntu@3.109.158.104 "
+            ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ubuntu@3.109.158.104 "
     cd /var/www/nodeapp &&
     npm install &&
     pm2 restart all || pm2 start server.js
